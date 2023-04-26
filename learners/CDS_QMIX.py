@@ -202,10 +202,8 @@ class CDS_QMIX:
     # TODO: change this
     def calculate_K(self, x, y):
         dis = self.calculate_dis(x, y)
-
         dis_mean = dis.mean()
-        print(dis.shape)
-        raise
+        dis = dis / dis_mean
 
         return 1e-3 / (dis + 1e-3)
 
@@ -213,9 +211,10 @@ class CDS_QMIX:
         # TODO: here scaler follows the whole learning, can it be calculated once a update
         K = self.calculate_K(x, y)
 
-        alpha = 1 / (K.sum(dim=-1) ** 0.5 + 0.001)
+        alpha = 1 / (K.sum(dim=-1) ** 0.5 + 1e-3)
         if self.args.scaler_fresh:
             self.scaler = Scaler(1)
+
         self.scaler.update(alpha)
         alpha = self.scaler.norm(alpha) + 1
         return alpha.clamp(min=self.args.alpha_min, max=self.args.alpha_max)
