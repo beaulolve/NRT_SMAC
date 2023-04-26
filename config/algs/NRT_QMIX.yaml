@@ -1,0 +1,64 @@
+# --- QMIX specific parameters ---
+
+# use epsilon greedy action selector
+action_selector: "epsilon_greedy"
+epsilon_start: 1.0
+epsilon_finish: 0.05
+epsilon_anneal_time: 50000
+
+runner: "episode"
+
+buffer_size: 5000
+
+# update the target network every {} episodes
+target_update_interval: 200
+
+# use the Q_Learner to train
+agent_output_type: "q"
+learner: "CDS_QMIX"
+double_q: True
+mixer: "qmix"
+mixing_embed_dim: 32
+hypernet_layers: 2
+hypernet_embed: 64
+
+on_policy_batch: 16
+predict_epoch: 25
+predict_net_dim: 128
+
+beta1: 2.0
+beta2: 0.5
+beta: 0.1
+localq_norm_w: 0.1
+
+ifaver: True
+ifon_sample: False
+ifaddobs: True
+
+alpha: 0.3
+td_lambda: 0.8
+
+state_vae_latent_dim: 16
+check_point_interval: 100000
+episode_add_interval: 10
+
+state_vae_train_buffer: 1280
+state_vae_train_batch: 512
+state_vae_train_epoch: 4
+
+Kmean_N: 10
+calculate_reward_sample: 10
+already_forget_sample: 5
+
+alpha_min: 1.0
+alpha_max: 4.0
+
+forget_logp_punish: True
+forget_logp_punish_weight: 0.001
+
+forget_prop: 2.
+forget_old_already: 0.5
+forget_min_max: 0.1
+forget_max_min: 100
+
+name: "cds_qmix_prior"

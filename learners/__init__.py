@@ -1,0 +1,5 @@
+from .CDS_QMIX import CDS_QMIX
+
+REGISTRY = {}
+
+REGISTRY["CDS_QMIX"] = CDS_QMIX
