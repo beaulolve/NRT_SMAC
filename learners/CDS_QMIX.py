@@ -202,11 +202,17 @@ class CDS_QMIX:
     # TODO: change this
     def calculate_K(self, x, y):
         dis = self.calculate_dis(x, y)
+
+        dis_mean = dis.mean()
+        print(dis.shape)
+        raise
+
         return 1e-3 / (dis + 1e-3)
 
     def calculate_forget_all(self, x, y):
         # TODO: here scaler follows the whole learning, can it be calculated once a update
         K = self.calculate_K(x, y)
+
         alpha = 1 / (K.sum(dim=-1) ** 0.5 + 0.001)
         if self.args.scaler_fresh:
             self.scaler = Scaler(1)
